@@ -7,8 +7,8 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
-#define IP_ADDR "192.168.150.28"
-#define PORT_NO 666
+#define IP_ADDR "192.168.150.1"
+#define PORT_NO 9090
 
 SOCKET create_socket(void);
 int connect_socket(SOCKET* sock, char* ip, int port, int timeout_recv);
@@ -29,11 +29,23 @@ int main(int argc, char *argv[])
         {
             char header[2] = {0x01, 0x00};
             char buffer[256] = {0};
-            int n;
+            int n, opcao;
             //char free_mem[1000] = {0};
 
             //memset(free_mem, 0, 999);
             show_menu();
+            /*scanf("%d", &opcao);
+            switch(opcao)
+            {
+                case 0: header[0] = 0x00;
+                        break;
+                case 1: header[0] = 0x01;
+                        break;
+                case 2: header[0] = 0x02;
+                        break;
+                case 3: header[0] = 0x03;
+                        break;
+            }*/
             //memset((void*) header, 0, 2);
             //fgets(header, 1, stdin);
 
@@ -43,7 +55,7 @@ int main(int argc, char *argv[])
             fgets(buffer, 255, stdin);
 
             header[1] = strlen(buffer)-1;
-            send_socket(&sock, header, 2);
+            //send_socket(&sock, header, 2);
             n = send_socket(&sock, buffer, strlen(buffer));
 
             if (n >= 0)
